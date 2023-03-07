@@ -1,0 +1,19 @@
+body {
+  background-color: coral;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment {
+  width: 300px;
+  height: 300px;
+}
+
+.reply {
+  position: relative;
+  left: 5%;
+  height: 300px;
+  width: 300px - 5%;
+}
