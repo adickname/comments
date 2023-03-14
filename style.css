@@ -1,5 +1,6 @@
 body {
   background-color: coral;
+  margin: 0;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -7,13 +8,64 @@ body {
 }
 
 .comment {
-  width: 300px;
-  height: 300px;
+  background-color: pink;
 }
 
-.reply {
+.replied {
   position: relative;
   left: 5%;
-  height: 300px;
-  width: 300px - 5%;
+  width: 95%;
+  background-color: pink;
+}
+
+.userInfo,
+.replyInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.plusOpinion,
+.minusOpinion {
+  display: flex;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  padding: 10px;
+}
+
+.replyBox {
+  color: hsl(238, 40%, 52%);
+  font-weight: 700;
+}
+
+.commentInfoAndOptions {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+}
+
+.opinion {
+  background-color: hsl(223, 19%, 93%);
+  width: 4rem;
+  height: 1.5rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+}
+
+.replyingUser {
+  color: blue;
+}
+
+.youButton {
+  background-color: brown;
+  color: white;
 }
