@@ -9,6 +9,7 @@ body {
 
 .comment {
   background-color: pink;
+  width: 100%;
 }
 
 .replied {
@@ -68,4 +69,8 @@ body {
 .youButton {
   background-color: brown;
   color: white;
+}
+
+.editOptions {
+  display: flex;
 }
