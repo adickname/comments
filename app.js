@@ -173,6 +173,11 @@ datas.forEach((element) => {
 
         let parentNick = childsUserInfo.querySelector(".nickname").textContent;
 
+        let scoreR = element.score;
+        if (isNaN(scoreR) === true) {
+          scoreR = 0;
+        }
+
         createReply.innerHTML =
           '<div class="userInfo"><img src="images/avatars/image-juliusomo.png" class="avatar" /><div>' +
           "juliusomo </div> <div>" +
@@ -183,8 +188,59 @@ datas.forEach((element) => {
           parentNick +
           "</span>" +
           " " +
-          userText;
+          userText +
+          '<div class="commentInfoAndOptions"><div class="opinion"><div class="plusOpinion" id="plusOpinion"><img src="images/icon-plus.svg" alt=""></div><div class="score">' +
+          scoreR +
+          '</div><div id="minusOpinion" class="minusOpinion"><img src="images/icon-minus.svg" alt=""></div></div><div class="editOptions"><div class="delete"><img src="images/icon-delete.svg" alt=""></div><div class="edit"><img src="images/icon-edit.svg" alt=""></div></div>';
       });
     });
+  });
+});
+
+//adding plus opinion and minus opinion
+const plusScore = document.querySelectorAll(".plusOpinion");
+const minusScore = document.querySelectorAll(".minusOpinion");
+minusScore.forEach((element) => {
+  let isMinus = false;
+  element.addEventListener("click", () => {
+    if (isMinus === false) {
+      const opinions = element.parentNode;
+      const siblingsElement = opinions.children;
+      let scoreValue = siblingsElement.item(1).textContent;
+      let scoreNewValue = siblingsElement.item(1);
+      scoreValue--;
+      scoreNewValue.innerHTML = scoreValue;
+      isMinus = true;
+    } else if (isMinus === true) {
+      const opinions = element.parentNode;
+      const siblingsElement = opinions.children;
+      let scoreValue = siblingsElement.item(1).textContent;
+      let scoreNewValue = siblingsElement.item(1);
+      scoreValue++;
+      scoreNewValue.innerHTML = scoreValue;
+      isMinus = false;
+    }
+  });
+});
+plusScore.forEach((element) => {
+  let isPlus = false;
+  element.addEventListener("click", () => {
+    if (isPlus === false) {
+      const opinions = element.parentNode;
+      const siblingsElement = opinions.children;
+      let scoreValue = siblingsElement.item(1).textContent;
+      let scoreNewValue = siblingsElement.item(1);
+      scoreValue++;
+      scoreNewValue.innerHTML = scoreValue;
+      isPlus = true;
+    } else if (isPlus === true) {
+      const opinions = element.parentNode;
+      const siblingsElement = opinions.children;
+      let scoreValue = siblingsElement.item(1).textContent;
+      let scoreNewValue = siblingsElement.item(1);
+      scoreValue--;
+      scoreNewValue.innerHTML = scoreValue;
+      isPlus = false;
+    }
   });
 });
