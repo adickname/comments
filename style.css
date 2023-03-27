@@ -74,3 +74,21 @@ body {
 .editOptions {
   display: flex;
 }
+
+.commentEditParent {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 200px;
+  top: 1%;
+}
+
+.editArea {
+  width: 90%;
+  height: 100%;
+}
+
+.btn {
+  width: 30px;
+  height: 30px;
+}
