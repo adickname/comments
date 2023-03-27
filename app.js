@@ -1,6 +1,5 @@
 import myExport from "./data.json" assert { type: "json" };
-//pull out datas  from datas[] thanks forEach and append in html\
-
+import { edit, deleteF, numberOpinion } from "./ownUserFunctions.js";
 const datas = [];
 datas.push(myExport);
 
@@ -40,7 +39,7 @@ datas.forEach((element) => {
       nickname.innerHTML = element.user.username;
       nickname.classList.add("nickname");
       //content
-      comment.innerHTML += "<br>" + element.content;
+      comment.innerHTML += "<p class='content'>" + element.content + "</p>";
       //opinions
       comment.appendChild(commentInfoAndOptions);
       commentInfoAndOptions.classList.add("commentInfoAndOptions");
@@ -102,7 +101,9 @@ datas.forEach((element) => {
             element.replyingTo +
             "</span> " +
             " " +
+            "<p class='content'>" +
             element.content +
+            "</p>" +
             "<div class='commentInfoAndOptions'>  <div class='opinion'> <div id='plusOpinion' class='plusOpinion'><img src='images/icon-plus.svg'></div> <div class='score'>" +
             element.score +
             "</div>     <div id='minusOpinion' class='minusOpinion'><img src='images/icon-minus.svg' class='minus'></div></div>" +
@@ -132,12 +133,16 @@ datas.forEach((element) => {
               element.replyingTo +
               "</span> " +
               " " +
+              "<p class='content'>" +
               element.content +
+              "</p>" +
               "<div class='commentInfoAndOptions'>  <div class='opinion'> <div id='plusOpinion' class='plusOpinion'><img src='images/icon-plus.svg'></div> <div class='score'>" +
               element.score +
               "</div>     <div id='minusOpinion' class='minusOpinion'><img src='images/icon-minus.svg' class='minus'></div></div>" +
               ' <div class="editOptions"><div class="delete"><img src="images/icon-delete.svg" alt=""></div><div class="edit"><img src="images/icon-edit.svg" alt=""></div></div> ' +
               "</div>";
+            edit();
+            deleteF();
           }
         }
       });
@@ -188,59 +193,76 @@ datas.forEach((element) => {
           parentNick +
           "</span>" +
           " " +
+          "<p class='content'>" +
           userText +
+          "</p>" +
           '<div class="commentInfoAndOptions"><div class="opinion"><div class="plusOpinion" id="plusOpinion"><img src="images/icon-plus.svg" alt=""></div><div class="score">' +
           scoreR +
           '</div><div id="minusOpinion" class="minusOpinion"><img src="images/icon-minus.svg" alt=""></div></div><div class="editOptions"><div class="delete"><img src="images/icon-delete.svg" alt=""></div><div class="edit"><img src="images/icon-edit.svg" alt=""></div></div>';
+        edit();
+        deleteF();
+        //adding plus opinion and minus opinion to own comment
+        const plusScore = document.querySelectorAll(".plusOpinion");
+        const minusScore = document.querySelectorAll(".minusOpinion");
+        let isMinus = false;
+        let isPlus = false;
+        minusScore.forEach((element) => {
+          element.addEventListener("click", () => {
+            if (isMinus === false) {
+              const opinions = element.parentNode;
+              const siblingsElement = opinions.children;
+              let scoreValue = siblingsElement.item(1).textContent;
+              let scoreNewValue = siblingsElement.item(1);
+              if (isPlus === true) {
+                scoreValue -= 2;
+              } else {
+                scoreValue--;
+              }
+              scoreNewValue.innerHTML = scoreValue;
+              isMinus = true;
+              isPlus = false;
+            } else if (isMinus === true) {
+              const opinions = element.parentNode;
+              const siblingsElement = opinions.children;
+              let scoreValue = siblingsElement.item(1).textContent;
+              let scoreNewValue = siblingsElement.item(1);
+              scoreValue++;
+              scoreNewValue.innerHTML = scoreValue;
+              isMinus = false;
+            }
+          });
+        });
+        plusScore.forEach((element) => {
+          element.addEventListener("click", () => {
+            if (isPlus === false) {
+              const opinions = element.parentNode;
+              const siblingsElement = opinions.children;
+              let scoreValue = siblingsElement.item(1).textContent;
+              let scoreNewValue = siblingsElement.item(1);
+              if (isMinus === true) {
+                scoreValue = parseInt(scoreValue);
+                scoreValue += 2;
+              } else {
+                scoreValue++;
+              }
+
+              scoreNewValue.innerHTML = scoreValue;
+              isPlus = true;
+              isMinus = false;
+            } else if (isPlus === true) {
+              const opinions = element.parentNode;
+              const siblingsElement = opinions.children;
+              let scoreValue = siblingsElement.item(1).textContent;
+              let scoreNewValue = siblingsElement.item(1);
+              scoreValue--;
+              scoreNewValue.innerHTML = scoreValue;
+              isPlus = false;
+            }
+          });
+        });
       });
     });
   });
 });
 
-//adding plus opinion and minus opinion
-const plusScore = document.querySelectorAll(".plusOpinion");
-const minusScore = document.querySelectorAll(".minusOpinion");
-minusScore.forEach((element) => {
-  let isMinus = false;
-  element.addEventListener("click", () => {
-    if (isMinus === false) {
-      const opinions = element.parentNode;
-      const siblingsElement = opinions.children;
-      let scoreValue = siblingsElement.item(1).textContent;
-      let scoreNewValue = siblingsElement.item(1);
-      scoreValue--;
-      scoreNewValue.innerHTML = scoreValue;
-      isMinus = true;
-    } else if (isMinus === true) {
-      const opinions = element.parentNode;
-      const siblingsElement = opinions.children;
-      let scoreValue = siblingsElement.item(1).textContent;
-      let scoreNewValue = siblingsElement.item(1);
-      scoreValue++;
-      scoreNewValue.innerHTML = scoreValue;
-      isMinus = false;
-    }
-  });
-});
-plusScore.forEach((element) => {
-  let isPlus = false;
-  element.addEventListener("click", () => {
-    if (isPlus === false) {
-      const opinions = element.parentNode;
-      const siblingsElement = opinions.children;
-      let scoreValue = siblingsElement.item(1).textContent;
-      let scoreNewValue = siblingsElement.item(1);
-      scoreValue++;
-      scoreNewValue.innerHTML = scoreValue;
-      isPlus = true;
-    } else if (isPlus === true) {
-      const opinions = element.parentNode;
-      const siblingsElement = opinions.children;
-      let scoreValue = siblingsElement.item(1).textContent;
-      let scoreNewValue = siblingsElement.item(1);
-      scoreValue--;
-      scoreNewValue.innerHTML = scoreValue;
-      isPlus = false;
-    }
-  });
-});
+numberOpinion();
