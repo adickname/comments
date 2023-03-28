@@ -6,21 +6,22 @@ function edit() {
       let parentReply = element.parentNode;
       let parentCommentInfo = parentReply.parentNode;
       let parentComment = parentCommentInfo.parentNode;
-      let comment = parentComment.children.item(2);
-      let commentContent = parentComment.children.item(2).innerText;
+      let comment = parentComment.children.item(1).innerText;
+      let commentValue = parentComment.children.item(1);
+      console.log(comment);
       const commentEditParent = document.createElement("div");
       document.body.appendChild(commentEditParent);
       commentEditParent.classList.add("commentEditParent");
       commentEditParent.appendChild(createArea);
       createArea.classList.add("editArea");
-      createArea.append(commentContent);
+      createArea.append(comment);
       const button = document.createElement("button");
       commentEditParent.appendChild(button);
       button.classList.add("btn");
       button.addEventListener("click", () => {
         const newValue = document.querySelector(".editArea").value;
-        comment.textContent = "";
-        comment.append(newValue);
+        //  commentValue.innerText = "";
+        commentValue.textContent = newValue;
         //deleting commentEditParent
         const deleteArea = document.querySelectorAll(".commentEditParent");
         deleteArea.forEach((element) => element.remove());
@@ -85,6 +86,8 @@ function numberOpinion() {
     }
   });
   plusScore.forEach((element) => {
+    let isMinus = false;
+    let isPlus = false;
     if (element) {
       element.addEventListener("click", () => {
         if (isPlus == false) {
@@ -121,5 +124,49 @@ function numberOpinion() {
     }
   });
 }
+function add() {
+  const comment = document.createElement("div");
+  const nickname = document.createElement("div");
+  const avatar = document.createElement("img");
+  const userInfo = document.createElement("div");
+  const entered = document.createElement("div");
+  const paragraph = document.createElement("p");
+  const createArea = document.createElement("textarea");
+  document.body.appendChild(createArea);
+  createArea.classList.add("editArea");
+  const button = document.createElement("button");
+  document.body.appendChild(button);
+  button.classList.add("btn");
+  button.addEventListener("click", () => {
+    const value = document.querySelector(".editArea").value;
+    document.body.appendChild(comment);
+    comment.appendChild(userInfo);
+    comment.classList.add("comment");
+    //user info
+    userInfo.appendChild(avatar);
+    userInfo.appendChild(nickname);
+    userInfo.appendChild(entered);
+    userInfo.classList.add("userInfo");
+    entered.innerHTML = "";
 
-export { edit, deleteF, numberOpinion };
+    avatar.setAttribute("src", "images/avatars/image-juliusomo.png");
+    avatar.classList.add("avatar");
+    nickname.innerHTML = "juliusomo";
+    nickname.classList.add("nickname");
+    //content
+    //console.log(value);
+    comment.appendChild(paragraph);
+    paragraph.classList.add("content");
+    paragraph.textContent += value;
+    comment.innerHTML +=
+      "<div class='commentInfoAndOptions'>  <div class='opinion'> <div id='plusOpinion' class='plusOpinion'><img src='images/icon-plus.svg'></div> <div class='score'>" +
+      0 +
+      "</div>     <div id='minusOpinion' class='minusOpinion'><img src='images/icon-minus.svg' class='minus'></div></div>" +
+      ' <div class="editOptions"><div class="delete"><img src="images/icon-delete.svg" alt=""></div><div class="edit"><img src="images/icon-edit.svg" alt=""></div></div> ' +
+      "</div>";
+    edit();
+    numberOpinion();
+    deleteF();
+  });
+}
+export { edit, deleteF, numberOpinion, add };

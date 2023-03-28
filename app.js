@@ -1,5 +1,5 @@
 import myExport from "./data.json" assert { type: "json" };
-import { edit, deleteF, numberOpinion } from "./ownUserFunctions.js";
+import { edit, deleteF, numberOpinion, add } from "./ownUserFunctions.js";
 const datas = [];
 datas.push(myExport);
 
@@ -96,12 +96,11 @@ datas.forEach((element) => {
           }
           //reply content
           replyComment.innerHTML +=
+            "<p class='content'>" +
             "<span class='replyingUser'> " +
             "@" +
             element.replyingTo +
             "</span> " +
-            " " +
-            "<p class='content'>" +
             element.content +
             "</p>" +
             "<div class='commentInfoAndOptions'>  <div class='opinion'> <div id='plusOpinion' class='plusOpinion'><img src='images/icon-plus.svg'></div> <div class='score'>" +
@@ -128,12 +127,11 @@ datas.forEach((element) => {
               "<div>" +
               element.createdAt +
               " </div> </div>" +
+              "<p class='content'>" +
               "<span class='replyingUser'> " +
               "@" +
               element.replyingTo +
               "</span> " +
-              " " +
-              "<p class='content'>" +
               element.content +
               "</p>" +
               "<div class='commentInfoAndOptions'>  <div class='opinion'> <div id='plusOpinion' class='plusOpinion'><img src='images/icon-plus.svg'></div> <div class='score'>" +
@@ -264,5 +262,5 @@ datas.forEach((element) => {
     });
   });
 });
-
+add();
 numberOpinion();
