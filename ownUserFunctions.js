@@ -30,6 +30,7 @@ function edit() {
       const button = document.createElement("button");
       commentEditParent.appendChild(button);
       button.classList.add("btn");
+      button.setAttribute("value", "Send");
       button.addEventListener("click", () => {
         let newValue = document.querySelector(".editArea").value;
         commentValue.textContent = newValue;
@@ -37,6 +38,7 @@ function edit() {
         const deleteArea = document.querySelectorAll(".commentEditParent");
         deleteArea.forEach((element) => element.remove());
         add();
+        setActualStateLocaleStorage();
       });
     })
   );
@@ -46,10 +48,14 @@ function deleteF() {
   const deleteComment = document.querySelectorAll(".delete");
   deleteComment.forEach((element) => {
     element.addEventListener("click", () => {
-      let parentReply = element.parentNode;
-      let parentCommentInfo = parentReply.parentNode;
-      let parentComment = parentCommentInfo.parentNode;
-      parentComment.remove();
+      const isToDoRemove = confirm("Delete your comment?");
+      if (isToDoRemove) {
+        let parentReply = element.parentNode;
+        let parentCommentInfo = parentReply.parentNode;
+        let parentComment = parentCommentInfo.parentNode;
+        parentComment.remove();
+        setActualStateLocaleStorage();
+      }
     });
   });
   setActualStateLocaleStorage;
@@ -148,6 +154,14 @@ function add() {
   const entered = document.createElement("div");
   const paragraph = document.createElement("p");
   const createArea = document.createElement("textarea");
+  const actualAreaToRemove = document.querySelectorAll(".editArea");
+  actualAreaToRemove.forEach((element) => {
+    element.remove();
+  });
+  const buttonAreaToRemove = document.querySelectorAll(".btn");
+  buttonAreaToRemove.forEach((element) => {
+    element.remove();
+  });
   document.body.appendChild(createArea);
   createArea.classList.add("editArea");
   const button = document.createElement("button");
@@ -175,9 +189,9 @@ function add() {
     paragraph.classList.add("content");
     paragraph.textContent += value;
     comment.innerHTML +=
-      "<div class='commentInfoAndOptions'>  <div class='opinion'> <div id='plusOpinion' class='plusOpinion'><img src='images/icon-plus.svg'></div> <div class='score'>" +
+      "<div class='commentInfoAndOptions'>  <div class='opinion'> <div id='plusOpinion' class='plusOpinion'><img alt='plus' src='images/icon-plus.svg'></div> <div class='score'>" +
       0 +
-      "</div>     <div id='minusOpinion' class='minusOpinion'><img src='images/icon-minus.svg' class='minus'></div></div>" +
+      "</div>     <div id='minusOpinion' class='minusOpinion'><img src='images/icon-minus.svg' alt='minus' class='minus'></div></div>" +
       ' <div class="editOptions"><div class="delete"><img src="images/icon-delete.svg" alt=""></div><div class="edit"><img src="images/icon-edit.svg" alt=""></div></div> ' +
       "</div>";
     createArea.remove();
@@ -186,7 +200,8 @@ function add() {
     numberOpinion();
     deleteF();
     add();
-    setActualStateLocaleStorage;
+    setActualStateLocaleStorage();
   });
 }
+
 export { edit, deleteF, numberOpinion, add };
