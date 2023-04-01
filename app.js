@@ -1,5 +1,11 @@
 import myExport from "./data.json" assert { type: "json" };
 import { edit, deleteF, numberOpinion, add } from "./ownUserFunctions.js";
+import {
+  actualStateLocaleStorage,
+  setActualStateLocaleStorage,
+} from "./localeStorageFunctions.js";
+//console.log(localStorage.getItem("actualState").textContent);
+//if (localStorage.getItem("actualState") /*.textContent == "undefined"*/) {
 const datas = [];
 datas.push(myExport);
 
@@ -261,6 +267,17 @@ datas.forEach((element) => {
       });
     });
   });
+  setActualStateLocaleStorage();
+});
+
+actualStateLocaleStorage();
+
+//addEventListener("load", setActualStateLocaleStorage());
+//setActualStateLocaleStorage();
+const all = document.querySelectorAll("*");
+console.log(all);
+all.forEach((element) => {
+  element.addEventListener("load", setActualStateLocaleStorage());
 });
 add();
 numberOpinion();

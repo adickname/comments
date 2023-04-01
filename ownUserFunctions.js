@@ -1,14 +1,26 @@
+import {
+  actualStateLocaleStorage,
+  setActualStateLocaleStorage,
+} from "./localeStorageFunctions.js";
 function edit() {
   const elementReply = document.querySelectorAll(".edit");
   elementReply.forEach((element) =>
     element.addEventListener("click", () => {
+      const textAreaToRemove = document.querySelector(".editArea");
+      const btnRemove = document.querySelector("button");
+      if (btnRemove) {
+        btnRemove.remove();
+      }
+      if (textAreaToRemove) {
+        textAreaToRemove.remove();
+      }
+
       let createArea = document.createElement("textarea");
       let parentReply = element.parentNode;
       let parentCommentInfo = parentReply.parentNode;
       let parentComment = parentCommentInfo.parentNode;
       let comment = parentComment.children.item(1).innerText;
       let commentValue = parentComment.children.item(1);
-      console.log(comment);
       const commentEditParent = document.createElement("div");
       document.body.appendChild(commentEditParent);
       commentEditParent.classList.add("commentEditParent");
@@ -19,15 +31,16 @@ function edit() {
       commentEditParent.appendChild(button);
       button.classList.add("btn");
       button.addEventListener("click", () => {
-        const newValue = document.querySelector(".editArea").value;
-        //  commentValue.innerText = "";
+        let newValue = document.querySelector(".editArea").value;
         commentValue.textContent = newValue;
         //deleting commentEditParent
         const deleteArea = document.querySelectorAll(".commentEditParent");
         deleteArea.forEach((element) => element.remove());
+        add();
       });
     })
   );
+  setActualStateLocaleStorage();
 }
 function deleteF() {
   const deleteComment = document.querySelectorAll(".delete");
@@ -39,6 +52,7 @@ function deleteF() {
       parentComment.remove();
     });
   });
+  setActualStateLocaleStorage;
 }
 //adding plus opinion and minus opinion
 
@@ -79,9 +93,10 @@ function numberOpinion() {
             scoreValue = parseInt(scoreValue) + 1;
             scoreNewValue.innerHTML = scoreValue;
             isPlus = false;
-            isMinus = false;
+            isMinus = true;
           }
         }
+        setActualStateLocaleStorage();
       });
     }
   });
@@ -105,7 +120,7 @@ function numberOpinion() {
             const siblingsElement = opinions.children;
             let scoreValue = siblingsElement.item(1).textContent;
             let scoreNewValue = siblingsElement.item(1);
-            scoreValue = parseInt(scoreValue) + 2;
+            scoreValue = parseInt(scoreValue) + 1;
             scoreNewValue.innerHTML = scoreValue;
             isPlus = true;
             isMinus = false;
@@ -120,6 +135,7 @@ function numberOpinion() {
           isPlus = false;
           isMinus = false;
         }
+        setActualStateLocaleStorage();
       });
     }
   });
@@ -164,9 +180,13 @@ function add() {
       "</div>     <div id='minusOpinion' class='minusOpinion'><img src='images/icon-minus.svg' class='minus'></div></div>" +
       ' <div class="editOptions"><div class="delete"><img src="images/icon-delete.svg" alt=""></div><div class="edit"><img src="images/icon-edit.svg" alt=""></div></div> ' +
       "</div>";
+    createArea.remove();
+    button.remove();
     edit();
     numberOpinion();
     deleteF();
+    add();
+    setActualStateLocaleStorage;
   });
 }
 export { edit, deleteF, numberOpinion, add };
