@@ -1,0 +1,14 @@
+{
+  "name": "interactive-comment-section-fronetendmentor",
+  "version": "1.0.0",
+  "description": "![Design preview for the Interactive comments section coding challenge](./design/desktop-preview.jpg)",
+  "main": "app.js",
+  "scripts": {
+    "compile": "sass --watch style.scss style.css --style=compressed"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sass": "^1.60.0"
+  }
+}

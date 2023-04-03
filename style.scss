@@ -1,0 +1,99 @@
+$color_1: hsl(238, 40%, 52%);
+$color_2: blue;
+$color_3: white;
+$background-color_1: rgb(189, 96, 132);
+$background-color_2: rgb(230, 111, 111);
+$background-color_3: white;
+$background-color_4: hsl(223, 19%, 93%);
+$background-color_5: brown;
+
+body {
+  background-color: $background-color_1;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.comment {
+  background-color: $background-color_2;
+  width: 100%;
+}
+.replied {
+  position: relative;
+  left: 5%;
+  width: 95%;
+  background-color: $background-color_2;
+}
+.userInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.replyInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.plusOpinion {
+  display: flex;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  padding: 10px;
+}
+.minusOpinion {
+  display: flex;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  padding: 10px;
+}
+.replyBox {
+  color: $color_1;
+  font-weight: 700;
+}
+.commentInfoAndOptions {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  background-color: $background-color_3;
+}
+.opinion {
+  background-color: $background-color_4;
+  width: 4rem;
+  height: 1.5rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.avatar {
+  width: 64px;
+  height: 64px;
+}
+.replyingUser {
+  color: $color_2;
+}
+.youButton {
+  background-color: $background-color_5;
+  color: $color_3;
+}
+.editOptions {
+  display: flex;
+}
+.commentEditParent {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 200px;
+  top: 1%;
+}
+.editArea {
+  width: 90%;
+  min-height: 300px;
+}
+.btn {
+  width: 30px;
+  min-height: 30px;
+}
